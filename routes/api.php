@@ -116,4 +116,29 @@ Route::middleware(['api'])
     // DESTROY data by ID (id), selected IDs (selected), and All data (all)
     Route::delete("invoices/sections/items/{id}", [SectionItemsController::class, 'destroy'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // soft delete a collection by ID
 
+
+    // API: INVOICES
+    Route::get("invoices", [InvoicesController::class, 'index'])->middleware(['auth:api']); // get entire collection
+    Route::post("invoices", [InvoicesController::class, 'store'])->middleware(['auth:api']); // create new collection
+
+    Route::get("invoices/trash", [InvoicesController::class, 'trash'])->middleware(['auth:api']); // trash of collection
+
+    Route::post("invoices/import", [InvoicesController::class, 'import'])->middleware(['auth:api']); // import collection from external
+    Route::post("invoices/export", [InvoicesController::class, 'export'])->middleware(['auth:api']); // export entire collection
+    Route::get("invoices/report", [InvoicesController::class, 'report'])->middleware(['auth:api']); // report collection
+
+    Route::get("invoices/{id}/trashed", [InvoicesController::class, 'trashed'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // get collection by ID from trash
+
+    // RESTORE data by ID (id), selected IDs (selected), and All data (all)
+    Route::post("invoices/{id}/restore", [InvoicesController::class, 'restore'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // restore collection by ID
+
+    // DELETE data by ID (id), selected IDs (selected), and All data (all)
+    Route::delete("invoices/{id}/delete", [InvoicesController::class, 'delete'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // hard delete collection by ID
+
+    Route::get("invoices/{id}", [InvoicesController::class, 'show'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // get collection by ID
+    Route::put("invoices/{id}", [InvoicesController::class, 'update'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // update collection by ID
+    Route::patch("invoices/{id}", [InvoicesController::class, 'patch'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // patch collection by ID
+    // DESTROY data by ID (id), selected IDs (selected), and All data (all)
+    Route::delete("invoices/{id}", [InvoicesController::class, 'destroy'])->where('id', '[a-zA-Z0-9-]+')->middleware(['auth:api']); // soft delete a collection by ID
+
 });
